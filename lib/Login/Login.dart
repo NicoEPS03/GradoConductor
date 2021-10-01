@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:proyecto_grado_conductor/Login/Menu.dart';
 //import 'package:proyecto_grado_pasajero/Login/Menu.dart';
 import '../constants.dart';
 
@@ -129,7 +130,12 @@ class _LoginState extends State<Login> {
                           color: KPrimaryColorLogin,
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              try {
+                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute<Null>(
+                                  builder: (BuildContext context){
+                                    return new Menu();
+                                  })
+                                  , (Route<dynamic> route) => false);
+                              /*try {
                                 await auth.signInWithEmailAndPassword(email: _correoController.text , password: _claveController.text);
                                 if(auth.currentUser!.emailVerified == true){
                                   /*Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute<Null>(
@@ -160,9 +166,8 @@ class _LoginState extends State<Login> {
                                         content: Text('Contraseña incorrecta')),
                                   );
                                 }
-                              }
+                              }*/
                             }
-
                           },
                           child: Text(
                             "Ingresar",
@@ -175,7 +180,6 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            //asdas
             Positioned(
                 bottom: 0,
                 right: 0,
