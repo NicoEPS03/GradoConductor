@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "392230297708",
+    "firebase_url": "https://proyectogrado-253c6-default-rtdb.firebaseio.com",
+    "project_id": "proyectogrado-253c6",
+    "storage_bucket": "proyectogrado-253c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392230297708:android:495796a1aa9e96e608f849",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_grado_conductor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392230297708-tm79snfqlpi28lak1s6ll55ulaehtumu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBU9xGIH0s0IWaTd5oEMciZcbxArSiew4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392230297708-tm79snfqlpi28lak1s6ll55ulaehtumu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392230297708:android:fa65dbacb8b50e1b08f849",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_grado_pasajero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392230297708-tm79snfqlpi28lak1s6ll55ulaehtumu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBU9xGIH0s0IWaTd5oEMciZcbxArSiew4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392230297708-tm79snfqlpi28lak1s6ll55ulaehtumu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
