@@ -9,6 +9,12 @@ import 'package:proyecto_grado_conductor/constants.dart';
 import 'package:proyecto_grado_conductor/Model/NavigationItem.dart';
 
 class Menu extends StatelessWidget {
+  Menu({
+    Key? key,
+    required this.documento,
+  }) : super(key: key);
+  String documento;
+
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
     create: (context) => NavigationProvider(),
@@ -18,17 +24,23 @@ class Menu extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: MainPage(),
+      home: MainPage(documento),
     ),
   );
+
 }
 
 class MainPage extends StatefulWidget {
+  MainPage(this._documento);
+  String _documento;
   @override
-  _MainPageState createState() => _MainPageState();
+  _MainPageState createState() => _MainPageState(_documento);
 }
 
 class _MainPageState extends State<MainPage> {
+  _MainPageState(this._documento);
+  String _documento;
+
   @override
   Widget build(BuildContext context) => buildPages();
 
@@ -39,13 +51,13 @@ class _MainPageState extends State<MainPage> {
 
     switch (navigationItem){
       case NavigationItem.inicio:
-        return Inicio();
+        return Inicio(documento: _documento,);
       case NavigationItem.ganancias:
         return Ganancias();
       case NavigationItem.vehiculo:
-        return Vehiculo();
+        return Vehiculo(documento: _documento,);
       case NavigationItem.configuracion:
-        return Cuenta();
+        return Cuenta(documento: _documento,);
     }
   }
 }
