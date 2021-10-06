@@ -1,7 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:collection';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:proyecto_grado_conductor/Login/Menu.dart';
-//import 'package:proyecto_grado_pasajero/Login/Menu.dart';
+import 'package:proyecto_grado_conductor/Model/EConductor.dart';
 import '../constants.dart';
 
 ///Pantalla de logeo
@@ -12,16 +15,16 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   var visibility = false;
-  final auth = FirebaseAuth.instance;
+  final database = FirebaseDatabase.instance.reference().child('Conductores');
 
-  final _correoController = TextEditingController();
+  final _documentoController = TextEditingController();
   final _claveController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    _correoController.dispose();
+    _documentoController.dispose();
     _claveController.dispose();
     super.dispose();
   }
@@ -29,6 +32,20 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    //Obtiene los datos del conductor
+    Future<EConductor?> getConductorData(String documento, String clave) async {
+        return await database.child(documento)
+            .once()
+            .then((result) {
+          final LinkedHashMap value = result.value;
+          if (value['clave'] != clave){
+            return null;
+          }else{
+            return EConductor.fromMap(value);
+          }
+        });
+    }
 
     return Scaffold(
       body: Container(
@@ -60,19 +77,23 @@ class _LoginState extends State<Login> {
                       ),
                       child: TextFormField(
                         cursorColor: kPrimaryColor,
-                        controller: _correoController,
+                        controller: _documentoController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'El e-mail es requerido';
+                            return 'El documento es requerido';
                           }
                           return null;
                         },
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
                         decoration: InputDecoration(
                           icon: Icon(
                             Icons.person,
                             color: KPrimaryColorLogin,
                           ),
-                          hintText: "E-mail",
+                          hintText: "Documento",
                           border: InputBorder.none,
                         ),
                       ),
@@ -130,43 +151,26 @@ class _LoginState extends State<Login> {
                           color: KPrimaryColorLogin,
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute<Null>(
-                                  builder: (BuildContext context){
-                                    return new Menu();
-                                  })
-                                  , (Route<dynamic> route) => false);
-                              /*try {
-                                await auth.signInWithEmailAndPassword(email: _correoController.text , password: _claveController.text);
-                                if(auth.currentUser!.emailVerified == true){
-                                  /*Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute<Null>(
+                              try {
+                                EConductor? conductor = await getConductorData(_documentoController.text, _claveController.text);
+                                if (conductor != null){
+                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute<Null>(
                                       builder: (BuildContext context){
-                                        return new Menu();
+                                        return new Menu(documento: conductor.numDocumento,);
                                       })
-                                      , (Route<dynamic> route) => false);*/
-                                  /*Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                        return Menu();
-                                      }));*/
+                                      , (Route<dynamic> route) => false);
                                 }else{
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                        content: Text('Cuenta sin verificar')),
-                                  );
-                                  auth.currentUser!.sendEmailVerification();
-                                }
-                              } on FirebaseAuthException catch (e) {
-                                if (e.code == 'user-not-found') {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Email no registrado')),
-                                  );
-                                } else if (e.code == 'wrong-password') {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Contraseña incorrecta')),
+                                        content: Text('Credenciales incorrectas')),
                                   );
                                 }
-                              }*/
+                              } catch(e){
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Credenciales incorrectas')),
+                                );
+                              }
                             }
                           },
                           child: Text(

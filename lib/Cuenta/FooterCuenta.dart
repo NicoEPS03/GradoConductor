@@ -16,7 +16,6 @@ class FooterCuenta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final database = FirebaseDatabase.instance.reference().child('Pasajeros');
 
     return Container(
       height: size.height * 0.13,

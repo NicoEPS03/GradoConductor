@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-///Cabecera de la pantalla cuenta
+///Cabecera de la pantalla vehiculo
 class HeaderVehiculo extends StatelessWidget {
   const HeaderVehiculo({
     Key? key,
@@ -38,7 +38,7 @@ class HeaderVehiculo extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: Image.asset("assets/images/user.png").image),
+                    image: Image.asset("assets/images/vehicule.png").image),
                 boxShadow: [
                   BoxShadow(
                     offset: Offset(0, 10),
