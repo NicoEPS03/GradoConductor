@@ -30,7 +30,7 @@ class _DatosPersonalesState extends State<DatosPersonales> {
   final _nombreController = TextEditingController();
   final _apellidoController = TextEditingController();
   final _telefonoController = TextEditingController();
-  final _num_documentoController = TextEditingController();
+  final _numDocumentoController = TextEditingController();
   final _correoController = TextEditingController();
 
   @override
@@ -54,7 +54,7 @@ class _DatosPersonalesState extends State<DatosPersonales> {
       _apellidoController.text = conductor.apellido;
       _telefonoController.text = conductor.telefono;
       dropdownValue = conductor.tipoDocumento;
-      _num_documentoController.text = conductor.numDocumento;
+      _numDocumentoController.text = conductor.numDocumento;
       _correoController.text = conductor.correo;
     }
 
@@ -189,7 +189,7 @@ class _DatosPersonalesState extends State<DatosPersonales> {
                             color: Colors.transparent,
                           ),
                           child: TextFormField(
-                            controller: _num_documentoController,
+                            controller: _numDocumentoController,
                             enabled: false,
                             maxLength: 15,
                             decoration: InputDecoration(

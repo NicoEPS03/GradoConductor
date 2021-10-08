@@ -65,6 +65,13 @@ class NavigationDrawerWidget extends StatelessWidget {
                       icon: Icons.directions_bus,
                     ),
                     const SizedBox(height: 24),
+                    buildMenuItem(
+                      context,
+                      item: NavigationItem.reporta,
+                      text: 'Reportar',
+                      icon: Icons.account_circle,
+                    ),
+                    const SizedBox(height: 24),
                     Divider(color: Colors.white70),
                     const SizedBox(height: 24),
                     buildMenuItem(

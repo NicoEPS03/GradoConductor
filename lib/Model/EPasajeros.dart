@@ -1,25 +1,23 @@
-class EConductor{
+class EPasajeros {
   String nombre;
   String apellido;
   String telefono;
-  String tipoDocumento;
-  String numDocumento;
+  String num_documento;
   String correo;
   String clave;
-  String cajaId;
-  String empresaId;
+  int saldo;
+  String id_NFC;
   bool estado;
 
-  EConductor({
+  EPasajeros({
     required this.nombre,
     required this.apellido,
     required this.telefono,
-    required this.tipoDocumento,
-    required this.numDocumento,
+    required this.num_documento,
     required this.correo,
     required this.clave,
-    required this.cajaId,
-    required this.empresaId,
+    required this.saldo,
+    required this.id_NFC,
     required this.estado
   });
 
@@ -28,27 +26,25 @@ class EConductor{
       'nombre' : nombre,
       'apellido' : apellido,
       'telefono' : telefono,
-      'tipoDocumento' : tipoDocumento,
-      'numDocumento' : numDocumento,
+      'num_documento' : num_documento,
       'correo' : correo,
       'clave' : clave,
-      'cajaId' : cajaId,
-      'empresaId' : empresaId,
+      'saldo' : saldo,
+      'id_NFC' : id_NFC,
       'estado' : estado
     };
   }
 
-  static EConductor fromMap(Map value){
-    return EConductor(
+  static EPasajeros fromMap(Map value){
+    return EPasajeros(
         nombre: value['nombre'],
         apellido: value['apellido'],
         telefono: value['telefono'],
-        tipoDocumento: value['tipoDocumento'],
-        numDocumento: value['numDocumento'],
+        num_documento: value['num_documento'],
         correo: value['correo'],
         clave: value['clave'],
-        cajaId: value['cajaId'],
-        empresaId: value['empresaId'],
+        saldo: value['saldo'],
+        id_NFC: value['id_NFC'],
         estado: value['estado']
     );
   }

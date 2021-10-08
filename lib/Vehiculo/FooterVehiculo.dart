@@ -6,10 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:proyecto_grado_conductor/Login/Login.dart';
-import 'package:proyecto_grado_conductor/Model/EBuses.dart';
+import 'package:proyecto_grado_conductor/Model/ECaja.dart';
 import 'package:proyecto_grado_conductor/Model/EConductor.dart';
-import 'package:proyecto_grado_conductor/Vehiculo/Vehiculo.dart';
 
 import '../constants.dart';
 
@@ -29,7 +27,7 @@ class FooterVehiculo extends StatefulWidget {
 }
 
 final database = FirebaseDatabase.instance.reference().child('Conductores');
-final databaseBus = FirebaseDatabase.instance.reference().child('Buses');
+final databaseCajas = FirebaseDatabase.instance.reference().child('Cajas');
 
 //Obtiene los datos del conductor desde firebase
 Future<EConductor> getConductorData(String userId) async {
@@ -41,14 +39,14 @@ Future<EConductor> getConductorData(String userId) async {
   });
 }
 
-//Obtiene los datos del bus a enlazar
-Future<EBuses?> getBusData(String placa) async {
-  return await databaseBus.child(placa)
+//Obtiene los datos del caja a enlazar
+Future<ECaja?> getCajaData(String placa) async {
+  return await databaseCajas.child(placa)
       .once()
       .then((result) {
     final LinkedHashMap value = result.value;
     if (value['conductorId'].toString().isEmpty){
-      return EBuses.fromMap(value);
+      return ECaja.fromMap(value);
     }else{
       return null;
     }
@@ -62,7 +60,7 @@ IconData _icono = Icons.add;
 class _FooterVehiculoState extends State<FooterVehiculo> {
   _FooterVehiculoState(this.documento);
   String documento;
-  String _bus = '';
+  String _caja = '';
 
   ScanResult? _scanResult;
 
@@ -77,15 +75,15 @@ class _FooterVehiculoState extends State<FooterVehiculo> {
     //Asigna los datos del conductor a las variable a pasar
     getConductor() async{
       EConductor conductor = await getConductorData(documento);
-      if (conductor.busId.isEmpty){
+      if (conductor.cajaId.isEmpty){
         _vehiculo = 'Vehiculo sin enlazar';
         _textoFooter = 'ENLAZAR VEHICULO';
         _icono = Icons.add;
       }else{
         _textoFooter = 'DESENLAZAR VEHICULO';
         _icono = Icons.clear;
-        _bus = conductor.busId;
-        _vehiculo = 'Vehiculo No. ' + conductor.busId;
+        _caja = conductor.cajaId;
+        _vehiculo = 'Vehiculo No. ' + conductor.cajaId;
       }
     }
 
@@ -149,9 +147,9 @@ class _FooterVehiculoState extends State<FooterVehiculo> {
                                 onPressed: () async{
                                   if (_textoFooter == 'DESENLAZAR VEHICULO'){
                                     await database.child(documento).update({
-                                      'busId': ''
+                                      'cajaId': ''
                                     });
-                                    await databaseBus.child(_bus).update({
+                                    await databaseCajas.child(_caja).update({
                                       'conductorId': '',
                                       'rutaId': ''
                                     });
@@ -163,10 +161,10 @@ class _FooterVehiculoState extends State<FooterVehiculo> {
                                   }else{
                                     _scanCode();
                                     if (_scanResult!.rawContent != null){
-                                      await database.child(documento).update({'busId': _scanResult!.rawContent});
-                                      EBuses? bus = await getBusData(_scanResult!.rawContent);
-                                      if (bus != null) {
-                                        await databaseBus.child(_scanResult!.rawContent).update({'conductorId': documento});
+                                      await database.child(documento).update({'cajaId': _scanResult!.rawContent});
+                                      ECaja? caja = await getCajaData(_scanResult!.rawContent);
+                                      if (caja != null) {
+                                        await databaseCajas.child(_scanResult!.rawContent).update({'conductorId': documento});
                                         setState(() {
                                           _textoFooter = 'DESENLAZAR VEHICULO';
                                           _icono = Icons.clear;
@@ -177,6 +175,10 @@ class _FooterVehiculoState extends State<FooterVehiculo> {
                                           const SnackBar(content: Text('Bus ya enlazado')),
                                         );
                                       }
+                                    }else{
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text('Error al enlazar')),
+                                      );
                                     }
                                   }
                                 },

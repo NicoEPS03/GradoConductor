@@ -22,7 +22,6 @@ class Vehiculo extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     String _nombre = '';
-    String _vehiculo = '';
 
     //Obtiene los datos del conductor desde firebase
     Future<EConductor> getConductorData(String userId) async {
@@ -42,11 +41,6 @@ class Vehiculo extends StatelessWidget {
         _nombre = conductor.nombre;
       }else{
         _nombre = nombreCompleto.substring(0,nombreCompleto.indexOf(" "));
-      }
-      if(conductor.busId.isEmpty){
-        _vehiculo = 'Vehiculo sin enlazar';
-      }else{
-        _vehiculo = 'Vehiculo No. ' + conductor.busId;
       }
     }
 

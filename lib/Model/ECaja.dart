@@ -1,4 +1,4 @@
-class EBuses{
+class ECaja{
   String placa;
   String empresaId;
   String cajaId;
@@ -6,7 +6,7 @@ class EBuses{
   String rutaId;
   bool estado;
 
-  EBuses({
+  ECaja({
     required this.placa,
     required this.empresaId,
     required this.cajaId,
@@ -26,8 +26,8 @@ class EBuses{
     };
   }
 
-  static EBuses fromMap(Map value){
-    return EBuses(
+  static ECaja fromMap(Map value){
+    return ECaja(
         placa: value['placa'],
         empresaId: value['empresaId'],
         cajaId: value['cajaId'],

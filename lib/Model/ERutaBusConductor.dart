@@ -1,6 +1,6 @@
 class ERutaBusConductor{
-  DateTime fecha;
-  String busId;
+  String fecha;
+  String cajaId;
   String nomRuta;
   int numPasajeros;
   int valor;
@@ -8,7 +8,7 @@ class ERutaBusConductor{
 
   ERutaBusConductor({
     required this.fecha,
-    required this.busId,
+    required this.cajaId,
     required this.nomRuta,
     required this.numPasajeros,
     required this.valor,
@@ -18,7 +18,7 @@ class ERutaBusConductor{
   Map<String, Object> toMap(){
     return {
       'fecha' : fecha,
-      'busId' : busId,
+      'cajaId' : cajaId,
       'nomRuta' : nomRuta,
       'numPasajeros' : numPasajeros,
       'valor' : valor,
@@ -29,7 +29,7 @@ class ERutaBusConductor{
   static ERutaBusConductor fromMap(Map value){
     return ERutaBusConductor(
         fecha: value['fecha'],
-        busId: value['busId'],
+        cajaId: value['cajaId'],
         nomRuta: value['nomRuta'],
         numPasajeros: value['numPasajeros'],
         valor: value['valor'],
