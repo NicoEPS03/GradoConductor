@@ -3,6 +3,7 @@ enum NavigationItem {
   inicio,
   ganancias,
   vehiculo,
+  reporta,
   configuracion
 }
 /*        _   _       __  _   _

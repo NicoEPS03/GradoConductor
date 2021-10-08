@@ -4,6 +4,7 @@ import 'package:proyecto_grado_conductor/Cuenta/Cuenta.dart';
 import 'package:proyecto_grado_conductor/Ganancias/Ganancias.dart';
 import 'package:proyecto_grado_conductor/Login/Inicio.dart';
 import 'package:proyecto_grado_conductor/Provider/NavigationProvider.dart';
+import 'package:proyecto_grado_conductor/Reporte/ReportarPasajero.dart';
 import 'package:proyecto_grado_conductor/Vehiculo/Vehiculo.dart';
 import 'package:proyecto_grado_conductor/constants.dart';
 import 'package:proyecto_grado_conductor/Model/NavigationItem.dart';
@@ -56,6 +57,8 @@ class _MainPageState extends State<MainPage> {
         return Ganancias();
       case NavigationItem.vehiculo:
         return Vehiculo(documento: _documento,);
+      case NavigationItem.reporta:
+        return ReportarPasajero(documento: _documento,);
       case NavigationItem.configuracion:
         return Cuenta(documento: _documento,);
     }
