@@ -54,7 +54,7 @@ class _MainPageState extends State<MainPage> {
       case NavigationItem.inicio:
         return Inicio(documento: _documento,);
       case NavigationItem.ganancias:
-        return Ganancias();
+        return Ganancias(documento: _documento,);
       case NavigationItem.vehiculo:
         return Vehiculo(documento: _documento,);
       case NavigationItem.reporta:

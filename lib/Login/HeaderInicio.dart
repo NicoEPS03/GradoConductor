@@ -17,7 +17,7 @@ class HeaderInicio extends StatelessWidget {
   final Size size;
   final String nombre;
   final String apellido;
-  final int generado;
+  final num generado;
 
   @override
   Widget build(BuildContext context) {

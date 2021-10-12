@@ -68,7 +68,6 @@ class GananciasRuta extends StatelessWidget{
           .once()
           .then((result) {
         final LinkedHashMap value = result.value;
-        print(value);
         return ERutaBusConductor.fromMap(value);
       });
     }
