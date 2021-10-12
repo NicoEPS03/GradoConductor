@@ -4,6 +4,7 @@ class ERutaBusConductor{
   String nomRuta;
   int numPasajeros;
   int valor;
+  String conductorId;
   bool estado;
 
   ERutaBusConductor({
@@ -12,6 +13,7 @@ class ERutaBusConductor{
     required this.nomRuta,
     required this.numPasajeros,
     required this.valor,
+    required this.conductorId,
     required this.estado
   });
 
@@ -22,6 +24,7 @@ class ERutaBusConductor{
       'nomRuta' : nomRuta,
       'numPasajeros' : numPasajeros,
       'valor' : valor,
+      'conductorId' : conductorId,
       'estado' : estado
     };
   }
@@ -33,6 +36,7 @@ class ERutaBusConductor{
         nomRuta: value['nomRuta'],
         numPasajeros: value['numPasajeros'],
         valor: value['valor'],
+        conductorId: value['conductorId'],
         estado: value['estado']
     );
   }

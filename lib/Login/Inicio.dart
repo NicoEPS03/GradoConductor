@@ -5,10 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:proyecto_grado_conductor/Ganancias/GananciasRuta.dart';
 import 'package:proyecto_grado_conductor/Login/NavigationDrawerWidget.dart';
 import 'package:proyecto_grado_conductor/Model/ECaja.dart';
 import 'package:proyecto_grado_conductor/Model/EConductor.dart';
+import 'package:proyecto_grado_conductor/Model/ERutaBusConductor.dart';
 import 'package:proyecto_grado_conductor/constants.dart';
 import 'HeaderInicio.dart';
 
@@ -34,7 +36,7 @@ class _InicioState extends State<Inicio> {
   String _nombre = '';
   String _apellido = '';
   String _caja = '';
-  int _generado = 0;
+  num _generado = 0;
   String _boton = 'INICIAR';
   String dropdownValue = 'Plaza de Mercado - La Arboleda';
   bool _visibility = true;
@@ -56,13 +58,42 @@ class _InicioState extends State<Inicio> {
         .once()
         .then((result) {
       final LinkedHashMap value = result.value;
+      print('funcion');
+      if(value['rutaId'].toString().isNotEmpty){
+        _boton = 'FINALIZAR';
+        _visibility = true;
+      }
       return ECaja.fromMap(value);
+    });
+  }
+
+  //Obtiene los datos de la ruta desde firebase
+  Future<num> getRutaData(String cajaId) async {
+    return await databaseRutas.orderByChild("fecha").equalTo(f.format(DateTime.now()))
+        .once()
+        .then((result) {
+      final LinkedHashMap value = result.value;
+      num x = 0;
+      if(value != null){
+        for (int i = 0; i < value.values.length; i++){
+          if (value.values.elementAt(i)['conductorId'] == cajaId){
+            x = x + (value.values.elementAt(i)['numPasajeros'] * value.values.elementAt(i)['valor']);
+          }
+        }
+      }
+      _generado = x;
+      return _generado;
     });
   }
 
   //Asigna los datos del conductor a las variabla a pasar
   getConductor() async{
     EConductor conductor = await getConductorData(widget.documento);
+    await getRutaData(widget.documento);
+    if (conductor.cajaId.isNotEmpty){
+      print('caja');
+      await getCajaData(conductor.cajaId);
+    }
     var nombreCompleto = conductor.nombre;
     var apellidoCompleto = conductor.apellido;
     if(nombreCompleto.indexOf(" ") == -1){
@@ -83,6 +114,13 @@ class _InicioState extends State<Inicio> {
   void initState(){
     future = getConductor();
     super.initState();
+  }
+
+  @override
+  void Dispose(){
+    future;
+    _generado;
+    super.dispose();
   }
 
   @override
@@ -217,7 +255,7 @@ class _InicioState extends State<Inicio> {
                             } else {
                               _boton = 'FINALIZAR';
                               _visibility = false;
-                              //comenzarRuta();
+                              comenzarRuta();
                             }
                           }
                         });
@@ -254,6 +292,7 @@ class _InicioState extends State<Inicio> {
       'nomRuta': dropdownValue,
       'numPasajeros': 0,
       'valor': 1550,
+      'conductorId': widget.documento,
       'estado': true
     });
     await databaseCajas.child(_caja).update({
@@ -263,12 +302,12 @@ class _InicioState extends State<Inicio> {
 
   void finalizarRuta() async{
     ECaja caja = await getCajaData(_caja);
-    /*await databaseRutas.child(caja.rutaId).update({
+    await databaseRutas.child(caja.rutaId).update({
       'estado': false
     });
     await databaseCajas.child(_caja).update({
       'rutaId': ''
-    });*/
+    });
     Navigator.push(context,
         MaterialPageRoute(builder: (context) {
           return GananciasRuta(documento: widget.documento,rutaId: caja.rutaId,);
