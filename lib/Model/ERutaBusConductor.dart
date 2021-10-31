@@ -6,6 +6,7 @@ class ERutaBusConductor{
   int valor;
   String conductorId;
   bool estado;
+  String empresaId;
 
   ERutaBusConductor({
     required this.fecha,
@@ -14,7 +15,8 @@ class ERutaBusConductor{
     required this.numPasajeros,
     required this.valor,
     required this.conductorId,
-    required this.estado
+    required this.estado,
+    required this.empresaId
   });
 
   Map<String, Object> toMap(){
@@ -25,7 +27,8 @@ class ERutaBusConductor{
       'numPasajeros' : numPasajeros,
       'valor' : valor,
       'conductorId' : conductorId,
-      'estado' : estado
+      'estado' : estado,
+      'empresaId' : empresaId
     };
   }
 
@@ -37,7 +40,8 @@ class ERutaBusConductor{
         numPasajeros: value['numPasajeros'],
         valor: value['valor'],
         conductorId: value['conductorId'],
-        estado: value['estado']
+        estado: value['estado'],
+        empresaId: value['empresaId']
     );
   }
 }
