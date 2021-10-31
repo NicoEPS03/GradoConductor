@@ -35,6 +35,8 @@ dependencies:
   provider: ^6.0.0
   flutter_progress_button: ^1.0.0
   intl: ^0.17.0
+  vibration: ^1.7.3
+  flushbar: ^1.10.4
 
 dev_dependencies:
   flutter_test:

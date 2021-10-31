@@ -159,7 +159,7 @@ class _FooterVehiculoState extends State<FooterVehiculo> {
                                       _icono = Icons.add;
                                     });
                                   }else{
-                                    _scanCode();
+                                    await _scanCode();
                                     if (_scanResult!.rawContent != null){
                                       await database.child(documento).update({'cajaId': _scanResult!.rawContent});
                                       ECaja? caja = await getCajaData(_scanResult!.rawContent);
@@ -170,6 +170,9 @@ class _FooterVehiculoState extends State<FooterVehiculo> {
                                           _icono = Icons.clear;
                                           _vehiculo = 'Vehiculo No. ' + _scanResult!.rawContent;
                                         });
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Bus enlazado')),
+                                        );
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(content: Text('Bus ya enlazado')),

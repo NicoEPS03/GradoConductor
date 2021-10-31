@@ -36,8 +36,7 @@ class FooterGananciasDia extends StatelessWidget {
         final LinkedHashMap value = result.value;
         for (int i = 0; i < value.values.length; i++){
           DateTime xfec = DateTime.parse(value.values.elementAt(i)['fecha']);
-          print(xfec.difference(DateTime.now()).inDays);
-          if (xfec.difference(DateTime.now()).inDays == 0 ){
+          if (xfec.difference(DateTime.now()).inDays == 0 && value.values.elementAt(i)['estado'] == false){
             ids.add(value.keys.elementAt(i));
             rutas.add(ERutaBusConductor.fromMap(value.values.elementAt(i)));
           }

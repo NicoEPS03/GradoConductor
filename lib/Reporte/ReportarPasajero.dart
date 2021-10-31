@@ -27,12 +27,16 @@ class ReportarPasajero extends StatefulWidget {
 
 class _ReportarPasajeroState extends State<ReportarPasajero> {
   final _codigoController = TextEditingController();
+  final _sintomasController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  String _empresa = '';
 
   @override
   void dispose() {
     _codigoController.dispose();
+    _sintomasController.dispose();
     super.dispose();
   }
 
@@ -67,6 +71,7 @@ class _ReportarPasajeroState extends State<ReportarPasajero> {
       }else{
         _nombre = nombreCompleto.substring(0,nombreCompleto.indexOf(" "));
       }
+      _empresa = conductor.empresaId;
     }
 
     //Obtiene los datos del pasajero a pasar saldo
@@ -147,6 +152,33 @@ class _ReportarPasajeroState extends State<ReportarPasajero> {
                           ),
                         ),
                       ),
+                      SizedBox(height: 30,),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        width: size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                        ),
+                        child: TextFormField(
+                          controller: _sintomasController,
+                          maxLines: 8,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Los sintomas son requeridos';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            suffixIcon: Icon(
+                              Icons.assignment_outlined,
+                              color: kPrimaryColor,
+                            ),
+                            hintText: "Sintomas",
+                            labelText: "Sintomas",
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 20),
                       ProgressButton(
                         defaultWidget: Text("Reportar", style: TextStyle(color: Colors.white),),
@@ -166,7 +198,9 @@ class _ReportarPasajeroState extends State<ReportarPasajero> {
                                   var orderRef = databaseReporte.push();
                                   await orderRef.set({
                                     'fecha': f.format(DateTime.now()),
-                                    'pasajeroId': _idPasarPasajero
+                                    'documentoPasajero': _codigoController.text,
+                                    'sintomas': _sintomasController.text,
+                                    'empresaId': _empresa
                                   });
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
