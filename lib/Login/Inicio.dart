@@ -52,7 +52,7 @@ class AppValueNotifier{
       if (ayuda.value != x && ayuda.value > 0){
         Flushbar(
           flushbarPosition: FlushbarPosition.TOP,
-          message: 'Ingresó un nuevo pasajero',
+          messageText: Text('Ingresó un nuevo pasajero', style: new TextStyle(fontSize: 18,color: Colors.white)),
           duration: Duration(seconds: 5),
           backgroundColor: Colors.green,
         ).show(context);
@@ -156,6 +156,7 @@ class _InicioState extends State<Inicio> {
       ),
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: kPrimaryColor,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(

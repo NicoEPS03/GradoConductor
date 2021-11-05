@@ -92,6 +92,7 @@ class _ReportarPasajeroState extends State<ReportarPasajero> {
             drawer: NavigationDrawerWidget(nombre: _nombre),
             appBar: AppBar(
               elevation: 0,
+              backgroundColor: kPrimaryColor,
               leading: Builder(
                 builder: (BuildContext context) {
                   return IconButton(
