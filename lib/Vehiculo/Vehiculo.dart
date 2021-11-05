@@ -7,6 +7,7 @@ import 'package:proyecto_grado_conductor/Login/NavigationDrawerWidget.dart';
 import 'package:proyecto_grado_conductor/Model/EConductor.dart';
 import 'package:proyecto_grado_conductor/Vehiculo/FooterVehiculo.dart';
 import 'package:proyecto_grado_conductor/Vehiculo/HeaderVehiculo.dart';
+import 'package:proyecto_grado_conductor/constants.dart';
 
 
 class Vehiculo extends StatelessWidget {
@@ -51,6 +52,7 @@ class Vehiculo extends StatelessWidget {
           drawer: NavigationDrawerWidget(nombre: _nombre),
           appBar: AppBar(
             elevation: 0,
+            backgroundColor: kPrimaryColor,
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(

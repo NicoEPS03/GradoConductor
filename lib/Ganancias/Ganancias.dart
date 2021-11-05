@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:proyecto_grado_conductor/Ganancias/FooterGananciasDia.dart';
 import 'package:proyecto_grado_conductor/Login/NavigationDrawerWidget.dart';
 import 'package:proyecto_grado_conductor/Model/EConductor.dart';
+import 'package:proyecto_grado_conductor/constants.dart';
 
 class Ganancias extends StatefulWidget {
   Ganancias({
@@ -92,6 +93,7 @@ class _GananciasState extends State<Ganancias> {
             drawer: NavigationDrawerWidget(nombre: _nombre),
             appBar: AppBar(
               elevation: 0,
+              backgroundColor: kPrimaryColor,
               leading: Builder(
                 builder: (BuildContext context) {
                   return IconButton(

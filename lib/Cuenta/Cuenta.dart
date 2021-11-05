@@ -7,6 +7,7 @@ import 'package:proyecto_grado_conductor/Cuenta/DatosPersonales.dart';
 import 'package:proyecto_grado_conductor/Cuenta/FooterCuenta.dart';
 import 'package:proyecto_grado_conductor/Login/NavigationDrawerWidget.dart';
 import 'package:proyecto_grado_conductor/Model/EConductor.dart';
+import 'package:proyecto_grado_conductor/constants.dart';
 import 'HeaderCuenta.dart';
 
 ///Pantalla de configuración de cuenta
@@ -61,6 +62,7 @@ class Cuenta extends StatelessWidget {
             drawer: NavigationDrawerWidget(nombre: _nombre),
             appBar: AppBar(
               elevation: 0,
+              backgroundColor: kPrimaryColor,
               leading: Builder(
                 builder: (BuildContext context) {
                   return IconButton(
