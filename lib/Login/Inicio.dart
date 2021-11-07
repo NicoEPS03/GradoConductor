@@ -105,6 +105,11 @@ class _InicioState extends State<Inicio> {
           _boton = 'FINALIZAR';
           _visibility = false;
         });
+      }else{
+        setState(() {
+          _boton = 'INICIAR';
+          _visibility = true;
+        });
       }
       return ECaja.fromMap(value);
     });
@@ -279,26 +284,34 @@ class _InicioState extends State<Inicio> {
                                       vertical: 20, horizontal: 40),
                                   color: KPrimaryColorLogin,
                                   onPressed: () {
-                                    setState(() {
-                                      if (_boton == 'FINALIZAR') {
+                                    if (_boton == 'FINALIZAR') {
+                                      setState(() {
                                         _boton = 'INICIAR';
                                         _visibility = true;
+                                        Future.delayed(const Duration(milliseconds: 500), () {
+                                          setState(() {
+                                            // Here you can write your code for open new view
+                                          });
+                                        });
                                         finalizarRuta();
+                                      });
+                                    } else {
+                                      if (_caja.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content: Text(
+                                                  'No hay un bus enlazado')),
+                                        );
                                       } else {
-                                        if (_caja.isEmpty) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                                content: Text(
-                                                    'No hay un bus enlazado')),
-                                          );
-                                        } else {
+                                        setState(() {
                                           _boton = 'FINALIZAR';
                                           _visibility = false;
                                           comenzarRuta();
-                                        }
+                                        });
                                       }
-                                    });
+                                    }
+
                                   },
                                   child: Text(
                                     _boton,
