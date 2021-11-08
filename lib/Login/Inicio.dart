@@ -49,7 +49,7 @@ class AppValueNotifier{
           }
         }
       }
-      if (ayuda.value != x && ayuda.value > 0){
+      if (ayuda.value != x && x != 0){
         Flushbar(
           flushbarPosition: FlushbarPosition.TOP,
           messageText: Text('Ingresó un nuevo pasajero', style: new TextStyle(fontSize: 18,color: Colors.white)),
