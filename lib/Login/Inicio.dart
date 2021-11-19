@@ -42,14 +42,16 @@ class AppValueNotifier{
         .then((result) async {
       final LinkedHashMap value = result.value;
       num x = 0;
+      bool finRuta = false;
       if(value != null){
         for (int i = 0; i < value.values.length; i++){
           if (value.values.elementAt(i)['conductorId'] == cajaId){
             x = x + (value.values.elementAt(i)['numPasajeros'] * value.values.elementAt(i)['valor']);
+            finRuta = value.values.elementAt(i)['estado'];
           }
         }
       }
-      if (ayuda.value != x && x != 0){
+      if (ayuda.value != x && x != 0 && finRuta != false){
         Flushbar(
           flushbarPosition: FlushbarPosition.TOP,
           messageText: Text('Ingresó un nuevo pasajero', style: new TextStyle(fontSize: 18,color: Colors.white)),
